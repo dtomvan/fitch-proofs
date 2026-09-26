@@ -1,0 +1,6 @@
+1 | a=b
+2 | P(b) ↔ Q(b)
+  |----
+3 | a=a                 = Intro
+4 | b=a                 = Elim: 3, 1
+5 | P(a) ↔ Q(b)         = Elim: 2, 4

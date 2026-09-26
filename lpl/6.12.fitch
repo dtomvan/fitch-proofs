@@ -1,0 +1,20 @@
+1  | Dodec(e)
+2  | ¬Small(e)
+3  | ¬Dodec(e) ∨ Dodec(f) ∨ Small(e)
+   |----
+4  | | ¬Dodec(f)
+   | |----
+5  | | | Dodec(f)
+   | | |----
+6  | | | ⊥                                   ⊥ Intro: 5, 4
+   | |
+7  | | | ¬Dodec(e)
+   | | |----
+8  | | | ⊥                                   ⊥ Intro: 1, 7
+   | |
+9  | | | Small(e)
+   | | |----
+10 | | | ⊥                                   ⊥ Intro: 9, 2
+11 | | ⊥                                     ∨ Elim: 3, 7-8, 5-6, 9-10
+12 | ¬¬Dodec(f)                              ¬ Intro: 4-11
+13 | Dodec(f)                                ¬ Elim: 12

@@ -1,0 +1,16 @@
+1  | (A ∧ B) ∨ (A ∧ C)
+   |----
+2  | | A ∧ B
+   | |----
+3  | | A                       ∧ Elim: 2
+4  | | B                       ∧ Elim: 2
+5  | | B ∨ C                   ∨ Intro: 4
+6  | | A ∧ (B ∨ C)             ∧ Intro: 3, 5
+   |
+7  | | A ∧ C
+   | |----
+8  | | A                       ∧ Elim: 7
+9  | | C                       ∧ Elim: 7
+10 | | B ∨ C                   ∨ Intro: 9
+11 | | A ∧ (B ∨ C)             ∧ Intro: 8, 10
+12 | A ∧ (B ∨ C)               ∨ Elim: 1, 2-6, 7-11
