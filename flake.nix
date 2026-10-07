@@ -1,11 +1,6 @@
 {
   description = "Generic devshell flake";
 
-  nixConfig = {
-    extra-substituters = [ "https://attic.bartoostveen.nl/dtomvan-nur" ];
-    extra-trusted-public-keys = [ "dtomvan-nur:UyHAqPSYjeqV2WZalOzuEnsy9iqXiskJ0S31Y/gZUdw=" ];
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -32,7 +27,12 @@
       ];
 
       perSystem =
-        { pkgs, inputs', ... }:
+        {
+          pkgs,
+          self',
+          inputs',
+          ...
+        }:
         let
           inherit (pkgs)
             fd
@@ -48,28 +48,26 @@
             programs.nixfmt.enable = true;
           };
 
-          devShells.default = pkgs.mkShell {
-            packages = [
+          packages.default = writeShellApplication {
+            name = "check-all";
+            runtimeInputs = [
               fd
               fitch-vizier
-              (writeShellApplication {
-                name = "check-all";
-                runtimeInputs = [
-                  fd
-                  fitch-vizier
-                  coreutils
-                  gawk
-                  bash
-                ];
-                derivationArgs = {
-                  preferLocalBuild = true;
-                  allowSubstitutes = false;
-                };
-                inheritPath = false;
-                text = ''
-                  fd -e fitch --exec sh -c 'test -s {} && printf "%s: " "{}" && fitchv --no-template {}'
-                '';
-              })
+              coreutils
+              gawk
+              bash
+            ];
+            derivationArgs = {
+              preferLocalBuild = true;
+              allowSubstitutes = false;
+            };
+            text = builtins.readFile ./check.sh;
+          };
+
+          devShells.default = pkgs.mkShell {
+            packages = [
+              fitch-vizier
+              self'.packages.check-all
             ];
           };
         };
