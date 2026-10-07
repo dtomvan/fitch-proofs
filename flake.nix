@@ -1,6 +1,11 @@
 {
   description = "Generic devshell flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://attic.bartoostveen.nl/dtomvan-nur" ];
+    extra-trusted-public-keys = [ "dtomvan-nur:UyHAqPSYjeqV2WZalOzuEnsy9iqXiskJ0S31Y/gZUdw=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -31,7 +36,6 @@
         let
           inherit (pkgs)
             fd
-            ripgrep
             writeShellApplication
             coreutils
             gawk
@@ -47,7 +51,6 @@
           devShells.default = pkgs.mkShell {
             packages = [
               fd
-              ripgrep
               fitch-vizier
               (writeShellApplication {
                 name = "check-all";
@@ -64,15 +67,11 @@
                 };
                 inheritPath = false;
                 text = ''
-                  fd -e fitch --exec sh -c 'test -s {} && fitchv --no-template {} || echo {} IS WRONG' | uniq -c
-                  fd -e fitch --exec wc -l | awk 'BEGIN {x=0;} {x+=$1} END{print x;}'
+                  fd -e fitch --exec sh -c 'test -s {} && printf "%s: " "{}" && fitchv --no-template {}'
                 '';
               })
             ];
           };
         };
-
-      flake = {
-      };
     };
 }

@@ -1,0 +1,10 @@
+jobs:
+  nix-flake-check:
+    runs-on: nix
+    steps:
+      - uses: actions/checkout@v6
+      - run: nix develop --accept-flake-config -c check-all
+
+"on":
+  pull_request: {}
+  workflow_dispatch: {}
