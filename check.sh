@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-find . -name '*.fitch' -exec sh -c 'i="$1"; test -s "$i" && printf "%s: " "$i" && fitchv --no-template "$1"' shell {} \;
+
+if find . -name '*.fitch' -exec sh -c 'for i; do test -s "$i" && printf "%s: " "$i" && fitchv --no-template "$i"; done' shell {} \+ |
+    grep -vF "The proof is correct!"; then
+    exit 1
+fi
