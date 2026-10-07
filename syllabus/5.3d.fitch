@@ -1,0 +1,14 @@
+1  | ∀x (P(x) ∧ Q(x))
+   |----
+2  | | [a]
+   | |----
+3  | | P(a) ∧ Q(a)             ∀ Elim: 1
+4  | | P(a)                    ∧ Elim: 3
+   |
+5  | | [a]
+   | |----
+6  | | P(a) ∧ Q(a)             ∀ Elim: 1
+7  | | Q(a)                    ∧ Elim: 6
+8  | ∀x P(x)                   ∀ Intro: 2-4
+9  | ∀x Q(x)                   ∀ Intro: 5-7
+10 | ∀x P(x) ∧ ∀x Q(x)         ∧ Intro: 8, 9

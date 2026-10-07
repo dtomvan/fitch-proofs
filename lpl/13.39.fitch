@@ -1,0 +1,33 @@
+1  | ∀x (Cube(x) → ∀y (Dodec(y) → Larger(x,y)))
+2  | ∀x (Dodec(x) → ∀y (Tet(y) → Larger(x,y)))
+3  | ∃x Dodec(x)
+4  | ∀x ∀y ∀z ((Larger(x,y) ∧ Larger(y,z)) → Larger(x,z))
+   |----
+5  | | [a]
+   | |----
+6  | | | Cube(a)
+   | | |----
+7  | | | | [b]
+   | | | |----
+8  | | | | | Tet(b)
+   | | | | |----
+9  | | | | | Cube(a) → ∀y (Dodec(y) → Larger(a,y))                       ∀ Elim: 1
+10 | | | | | ∀y (Dodec(y) → Larger(a,y))                                 → Elim: 9,6
+11 | | | | | | [c] Dodec(c)
+   | | | | | |----
+12 | | | | | | Dodec(c) → ∀y (Tet(y) → Larger(c,y))                      ∀ Elim: 2
+13 | | | | | | ∀y (Tet(y) → Larger(c,y))                                 → Elim: 12,11
+14 | | | | | | Tet(b) → Larger(c,b)                                      ∀ Elim: 13
+15 | | | | | | Larger(c,b)                                               → Elim: 14,8
+16 | | | | | | Dodec(c) → Larger(a,c)                                    ∀ Elim: 10
+17 | | | | | | Larger(a,c)                                               → Elim: 16,11
+18 | | | | | | ∀y ∀z ((Larger(a,y) ∧ Larger(y,z)) → Larger(a,z))         ∀ Elim: 4
+19 | | | | | | ∀z ((Larger(a,c) ∧ Larger(c,z)) → Larger(a,z))            ∀ Elim: 18
+20 | | | | | | (Larger(a,c) ∧ Larger(c,b)) → Larger(a,b)                 ∀ Elim: 19
+21 | | | | | | Larger(a,c) ∧ Larger(c,b)                                 ∧ Intro: 17, 15
+22 | | | | | | Larger(a,b)                                               → Elim: 20,21
+23 | | | | | Larger(a,b)                                                 ∃ Elim: 3, 11-22
+24 | | | | Tet(b) → Larger(a,b)                                          → Intro: 8-23
+25 | | | ∀y (Tet(y) → Larger(a,y))                                       ∀ Intro: 7-24
+26 | | Cube(a) → ∀y (Tet(y) → Larger(a,y))                               → Intro: 6-25
+27 | ∀x (Cube(x) → ∀y (Tet(y) → Larger(x,y)))                            ∀ Intro: 5-26

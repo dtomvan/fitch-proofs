@@ -1,0 +1,8 @@
+1 | Likes(carl,max)
+2 | ∀x (∃y (Likes(y,x) ∨ Likes(x,y)) → Likes(x,x))
+  |----
+3 | ∃y (Likes(y,carl) ∨ Likes(carl,y)) → Likes(carl,carl)         ∀ Elim: 2
+4 | Likes(max,carl) ∨ Likes(carl,max)                             ∨ Intro: 1
+5 | ∃y (Likes(y,carl) ∨ Likes(carl,y))                            ∃ Intro: 4
+6 | Likes(carl,carl)                                              → Elim: 3,5
+7 | ∃x Likes(x,carl)                                              ∃ Intro: 6

@@ -1,0 +1,29 @@
+1  | ∀y (Cube(y) ∨ Dodec(y))
+2  | ∀x (Cube(x) → Large(x))
+3  | ∃x ¬Large(x)
+   |----
+4  | Cube(a) ∨ Dodec(a)               ∀ Elim: 1
+5  | | Cube(a)
+   | |----
+6  | | | [b] ¬Large(b)
+   | | |----
+7  | | | Cube(b) ∨ Dodec(b)           ∀ Elim: 1
+8  | | | | Cube(b)
+   | | | |----
+9  | | | | Cube(b) → Large(b)         ∀ Elim: 2
+10 | | | | Large(b)                   → Elim: 9,8
+11 | | | | ⊥                          ⊥ Intro: 10, 6
+12 | | | | Dodec(b)                   ⊥ Elim: 11
+   | | |
+13 | | | | Dodec(b)
+   | | | |----
+14 | | | | Dodec(b)                   Reit: 13
+   | | |
+15 | | | Dodec(b)                     ∨ Elim: 7, 8-12, 13-14
+16 | | | ∃x Dodec(x)                  ∃ Intro: 15
+17 | | ∃x Dodec(x)                    ∃ Elim: 3, 6-16
+   |
+18 | | Dodec(a)
+   | |----
+19 | | ∃x Dodec(x)                    ∃ Intro: 18
+20 | ∃x Dodec(x)                      ∨ Elim: 4, 5-17, 18-19

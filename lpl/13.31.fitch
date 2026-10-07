@@ -1,0 +1,14 @@
+1  | ∀x ∀y (Likes(x,y) → Likes(y,x))
+2  | ∃x ∀y Likes(x,y)
+   |----
+3  | | [a]
+   | |----
+4  | | | [b] ∀y Likes(b,y)
+   | | |----
+5  | | | Likes(b,a)                           ∀ Elim: 4
+6  | | | ∀y (Likes(b,y) → Likes(y,b))         ∀ Elim: 1
+7  | | | Likes(b,a) → Likes(a,b)              ∀ Elim: 6
+8  | | | Likes(a,b)                           → Elim: 7,5
+9  | | | ∃y Likes(a,y)                        ∃ Intro: 8
+10 | | ∃y Likes(a,y)                          ∃ Elim: 2, 4-9
+11 | ∀x ∃y Likes(x,y)                         ∀ Intro: 3-10
