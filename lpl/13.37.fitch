@@ -1,0 +1,37 @@
+1  | ∀x (Dodec(x) → LeftOf(x,a))
+2  | ∀x (Tet(x) → RightOf(x,a))
+3  | ∀x ∀y (LeftOf(x,y) → ¬SameCol(x,y))
+4  | ∀x ∀y (RightOf(x,y) → ¬SameCol(x,y))
+5  | ∀x (Cube(x) ∨ Dodec(x) ∨ Tet(x))
+   |----
+6  | | [b]
+   | |----
+7  | | | SameCol(b,a)
+   | | |----
+8  | | | Dodec(b) → LeftOf(b,a)                      ∀ Elim: 1
+9  | | | Tet(b) → RightOf(b,a)                       ∀ Elim: 2
+10 | | | Cube(b) ∨ Dodec(b) ∨ Tet(b)                 ∀ Elim: 5
+11 | | | | Cube(b)
+   | | | |----
+12 | | | | Cube(b)                                   Reit: 11
+   | | |
+13 | | | | Dodec(b)
+   | | | |----
+14 | | | | LeftOf(b,a)                               → Elim: 8,13
+15 | | | | ∀y (LeftOf(b,y) → ¬SameCol(b,y))          ∀ Elim: 3
+16 | | | | LeftOf(b,a) → ¬SameCol(b,a)               ∀ Elim: 15
+17 | | | | ¬SameCol(b,a)                             → Elim: 16,14
+18 | | | | ⊥                                         ⊥ Intro: 7, 17
+19 | | | | Cube(b)                                   ⊥ Elim: 18
+   | | |
+20 | | | | Tet(b)
+   | | | |----
+21 | | | | RightOf(b,a)                              → Elim: 9,20
+22 | | | | ∀y (RightOf(b,y) → ¬SameCol(b,y))         ∀ Elim: 4
+23 | | | | RightOf(b,a) → ¬SameCol(b,a)              ∀ Elim: 22
+24 | | | | ¬SameCol(b,a)                             → Elim: 23,21
+25 | | | | ⊥                                         ⊥ Intro: 7, 24
+26 | | | | Cube(b)                                   ⊥ Elim: 25
+27 | | | Cube(b)                                     ∨ Elim: 10, 11-12, 13-19, 20-26
+28 | | SameCol(b,a) → Cube(b)                        → Intro: 7-27
+29 | ∀x (SameCol(x,a) → Cube(x))                     ∀ Intro: 6-28

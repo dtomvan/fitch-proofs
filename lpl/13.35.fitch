@@ -1,0 +1,17 @@
+1  | ∀x (Dodec(x) → SameCol(x,a))
+2  | SameCol(a,c)
+3  | ∀x ∀y ∀z ((SameCol(x,y) ∧ SameCol(y,z)) ↔ SameCol(x,z))
+   |----
+4  | | [b]
+   | |----
+5  | | | Dodec(b)
+   | | |----
+6  | | | Dodec(b) → SameCol(b,a)                                      ∀ Elim: 1
+7  | | | SameCol(b,a)                                                 → Elim: 6,5
+8  | | | ∀y ∀z ((SameCol(b,y) ∧ SameCol(y,z)) ↔ SameCol(b,z))         ∀ Elim: 3
+9  | | | ∀z ((SameCol(b,a) ∧ SameCol(a,z)) ↔ SameCol(b,z))            ∀ Elim: 8
+10 | | | (SameCol(b,a) ∧ SameCol(a,c)) ↔ SameCol(b,c)                 ∀ Elim: 9
+11 | | | SameCol(b,a) ∧ SameCol(a,c)                                  ∧ Intro: 7, 2
+12 | | | SameCol(b,c)                                                 ↔ Elim: 10, 11
+13 | | Dodec(b) → SameCol(b,c)                                        → Intro: 5-12
+14 | ∀x (Dodec(x) → SameCol(x,c))                                     ∀ Intro: 4-13

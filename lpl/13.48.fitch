@@ -1,0 +1,12 @@
+  |----
+1 | | Cube(b)
+  | |----
+2 | | | [a]
+  | | |----
+3 | | | Cube(b)                  Reit: 1
+4 | | ∀x Cube(b)                 ∀ Intro: 2-3
+  |
+5 | | ∀x Cube(b)
+  | |----
+6 | | Cube(b)                    ∀ Elim: 5
+7 | Cube(b) ↔ ∀x Cube(b)         ↔ Intro: 1-4, 5-6
