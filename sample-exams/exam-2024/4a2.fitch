@@ -1,0 +1,15 @@
+1  | R(a,b) ∧ (R(b,a) → R(c,c))
+2  | a=b
+   |----
+3  | R(b,b) ∧ (R(b,b) → R(c,c))         = Elim: 1, 2
+4  | R(b,b)                             ∧ Elim: 3
+5  | R(b,b) → R(c,c)                    ∧ Elim: 3
+6  | R(c,c)                             → Elim: 5,4
+7  | | ¬R(c,a)
+   | |----
+8  | | | a=c
+   | | |----
+9  | | | ¬R(c,c)                        = Elim: 7, 8
+10 | | | ⊥                              ⊥ Intro: 6, 9
+11 | | ¬(a=c)                           ¬ Intro: 8-10
+12 | ¬R(c,a) → ¬(a=c)                   → Intro: 7-11

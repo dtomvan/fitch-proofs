@@ -1,0 +1,14 @@
+1  | ∀x ∃y (P(x) → R(x,y))
+2  | ∀x ∀y ((R(x,y) ∨ (x=a)) → P(x))
+   |----
+3  | ∀y ((R(a,y) ∨ (a=a)) → P(a))            ∀ Elim: 2
+4  | (R(a,a) ∨ (a=a)) → P(a)                 ∀ Elim: 3
+5  | a=a                                     = Intro
+6  | R(a,a) ∨ (a=a)                          ∨ Intro: 5
+7  | P(a)                                    → Elim: 4,6
+8  | ∃y (P(a) → R(a,y))                      ∀ Elim: 1
+9  | | [b] P(a) → R(a,b)
+   | |----
+10 | | R(a,b)                                → Elim: 9,7
+11 | | ∃x R(a,x)                             ∃ Intro: 10
+12 | ∃x R(a,x)                               ∃ Elim: 8, 9-11
