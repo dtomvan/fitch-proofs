@@ -67,7 +67,7 @@
           devShells.default = pkgs.mkShell {
             packages = [
               fitch-vizier
-              self'.packages.check-all
+              self'.packages.default
             ];
           };
         };
