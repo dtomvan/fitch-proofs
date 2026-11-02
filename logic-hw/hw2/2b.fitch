@@ -1,0 +1,20 @@
+1  | ∀x ∀y (R(x,y) → R(y,x))
+2  | ∀x ∀y ∀z ((R(x,y) ∧ R(y,z)) → R(x,z))
+   |----
+3  | | [a]
+   | |----
+4  | | | ∃y R(a,y)
+   | | |----
+5  | | | | [b] R(a,b)
+   | | | |----
+6  | | | | ∀y (R(a,y) → R(y,a))                       ∀ Elim: 1
+7  | | | | R(a,b) → R(b,a)                            ∀ Elim: 6
+8  | | | | ∀y ∀z ((R(a,y) ∧ R(y,z)) → R(a,z))         ∀ Elim: 2
+9  | | | | ∀z ((R(a,b) ∧ R(b,z)) → R(a,z))            ∀ Elim: 8
+10 | | | | (R(a,b) ∧ R(b,a)) → R(a,a)                 ∀ Elim: 9
+11 | | | | R(b,a)                                     → Elim: 7,5
+12 | | | | R(a,b) ∧ R(b,a)                            ∧ Intro: 5, 11
+13 | | | | R(a,a)                                     → Elim: 10,12
+14 | | | R(a,a)                                       ∃ Elim: 4, 5-13
+15 | | ∃y R(a,y) → R(a,a)                             → Intro: 4-14
+16 | ∀x (∃y R(x,y) → R(x,x))                          ∀ Intro: 3-15
