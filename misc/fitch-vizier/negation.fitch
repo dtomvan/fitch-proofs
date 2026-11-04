@@ -1,0 +1,13 @@
+1  | S(a,b) ∧ ¬S(b,c)
+2  | b=a
+   |----
+3  | S(a,b)                   ∧ Elim: 1
+4  | ¬S(b,c)                  ∧ Elim: 1
+5  | b=b                      = Intro
+6  | a=b                      = Elim: 5, 2
+7  | | b=c
+   | |----
+8  | | S(b,b)                 = Elim: 3, 6
+9  | | S(b,c)                 = Elim: 8, 7
+10 | | ⊥                      ⊥ Intro: 9, 4
+11 | ¬(b=c)                   ¬ Intro: 7-10

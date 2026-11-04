@@ -1,0 +1,10 @@
+1 | (P ∨ Q) → (R ∧ S)
+  |----
+2 | | P ∧ Q
+  | |----
+3 | | P                       ∧ Elim: 2
+4 | | P ∨ Q                   ∨ Intro: 3
+5 | | R ∧ S                   → Elim: 1,4
+6 | | R                       ∧ Elim: 5
+7 | | R ∨ S                   ∨ Intro: 6
+8 | (P ∧ Q) → (R ∨ S)         → Intro: 2-7
