@@ -1,0 +1,11 @@
+1 | (a=b) ∧ ¬(c=b)
+  |----
+2 | | a=c
+  | |----
+3 | | a=b                  ∧ Elim: 1
+4 | | ¬(c=b)               ∧ Elim: 1
+5 | | b=c                  = Elim: 2, 3
+6 | | b=b                  = Intro
+7 | | c=b                  = Elim: 6, 5
+8 | | ⊥                    ⊥ Intro: 7, 4
+9 | ¬(a=c)                 ¬ Intro: 2-8
