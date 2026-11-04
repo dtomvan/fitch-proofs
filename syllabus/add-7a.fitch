@@ -1,0 +1,8 @@
+1 | ∀x ∀y Likes(x,y)
+  |----
+2 | | [a]
+  | |----
+3 | | ∀y Likes(a,y)          ∀ Elim: 1
+4 | | Likes(a,b)             ∀ Elim: 3
+5 | | ∃y Likes(a,y)          ∃ Intro: 4
+6 | ∀x ∃y Likes(x,y)         ∀ Intro: 2-5

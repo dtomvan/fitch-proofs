@@ -1,0 +1,22 @@
+1  | ∀x (Small(x) → Cube(x))
+2  | ∃x ¬Cube(x) → ∃x Small(x)
+   |----
+3  | | ¬∃x Cube(x)
+   | |----
+4  | | | ¬Cube(a)
+   | | |----
+5  | | | ∃x ¬Cube(x)                   ∃ Intro: 4
+6  | | | ∃x Small(x)                   → Elim: 2,5
+7  | | | | [b] Small(b)
+   | | | |----
+8  | | | | Small(b) → Cube(b)          ∀ Elim: 1
+9  | | | | Cube(b)                     → Elim: 8,7
+10 | | | | ∃x Cube(x)                  ∃ Intro: 9
+11 | | | | ⊥                           ⊥ Intro: 10, 3
+12 | | | ⊥                             ∃ Elim: 6, 7-11
+13 | | ¬¬Cube(a)                       ¬ Intro: 4-12
+14 | | Cube(a)                         ¬ Elim: 13
+15 | | ∃x Cube(x)                      ∃ Intro: 14
+16 | | ⊥                               ⊥ Intro: 15, 3
+17 | ¬¬∃x Cube(x)                      ¬ Intro: 3-16
+18 | ∃x Cube(x)                        ¬ Elim: 17

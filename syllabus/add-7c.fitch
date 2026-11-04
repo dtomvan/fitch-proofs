@@ -1,0 +1,8 @@
+1 | L(c,m)
+2 | ∀x (∃y (L(y,x) ∨ L(x,y)) → L(x,x))
+  |----
+3 | ∃y (L(y,c) ∨ L(c,y)) → L(c,c)              ∀ Elim: 2
+4 | L(m,c) ∨ L(c,m)                            ∨ Intro: 1
+5 | ∃y (L(y,c) ∨ L(c,y))                       ∃ Intro: 4
+6 | L(c,c)                                     → Elim: 3,5
+7 | ∃x L(x,c)                                  ∃ Intro: 6

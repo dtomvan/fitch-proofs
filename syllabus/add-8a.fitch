@@ -1,0 +1,16 @@
+1  | (P ∧ Q) ∨ (P ∧ R)
+   |----
+2  | | P ∧ Q
+   | |----
+3  | | P                       ∧ Elim: 2
+4  | | Q                       ∧ Elim: 2
+5  | | Q ∨ R                   ∨ Intro: 4
+6  | | P ∧ (Q ∨ R)             ∧ Intro: 3, 5
+   |
+7  | | P ∧ R
+   | |----
+8  | | P                       ∧ Elim: 7
+9  | | R                       ∧ Elim: 7
+10 | | Q ∨ R                   ∨ Intro: 9
+11 | | P ∧ (Q ∨ R)             ∧ Intro: 8, 10
+12 | P ∧ (Q ∨ R)               ∨ Elim: 1, 2-6, 7-11
